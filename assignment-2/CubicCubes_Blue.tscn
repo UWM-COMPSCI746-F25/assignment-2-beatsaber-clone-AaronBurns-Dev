@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://b705adnvgobi"]
+
+[ext_resource type="Script" uid="uid://dqgd5efo76ckj" path="res://beet_cubes_blue.gd" id="1_qhlog"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ds50u"]
+
+[node name="CubicCubes_Blue" type="Node3D"]
+script = ExtResource("1_qhlog")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+collision_mask = 2
+
+[node name="Area3D" type="Area3D" parent="CSGBox3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBox3D/Area3D"]
+shape = SubResource("BoxShape3D_ds50u")

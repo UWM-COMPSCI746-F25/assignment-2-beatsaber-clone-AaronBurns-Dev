@@ -1,0 +1,132 @@
+[gd_scene load_steps=22 format=3 uid="uid://c2soqmvxu833d"]
+
+[ext_resource type="Script" uid="uid://cvar88rsnmjx2" path="res://best_saber_clone.gd" id="1_a2v53"]
+[ext_resource type="Script" uid="uid://bgnh7ca2pegnf" path="res://SaberController.gd" id="2_hfhrp"]
+[ext_resource type="PackedScene" uid="uid://cnwp7ndjr4s8y" path="res://Quest2Controllers/OculusQuest2TouchController_Left.gltf" id="2_mqti6"]
+[ext_resource type="PackedScene" uid="uid://bc8lh0rihgxvi" path="res://Quest2Controllers/OculusQuest2TouchController_Right.gltf" id="3_qtmf7"]
+[ext_resource type="AudioStream" uid="uid://b2st18kni8xul" path="res://explode.mp3" id="5_ducm2"]
+[ext_resource type="Script" uid="uid://ca1c1inbogesp" path="res://deliver_the_beets.gd" id="6_ducm2"]
+[ext_resource type="Script" uid="uid://bsor1ncpk658h" path="res://LineRenderer.gd" id="6_hfhrp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hfhrp"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_jqk4k"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_haqtk"]
+radius = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mpnui"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_ducm2"]
+
+[sub_resource type="Skin" id="Skin_ecaim"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hfhrp"]
+radius = 0.1
+
+[sub_resource type="Sky" id="Sky_hfhrp"]
+
+[sub_resource type="Environment" id="Environment_mqti6"]
+background_mode = 1
+background_color = Color(0.188235, 0.0862745, 0.0901961, 1)
+sky = SubResource("Sky_hfhrp")
+tonemap_mode = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hfhrp"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ducm2"]
+
+[sub_resource type="Gradient" id="Gradient_jqk4k"]
+offsets = PackedFloat32Array(0, 0.796703, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.593407, 0.593407, 0.593407, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mpnui"]
+gradient = SubResource("Gradient_jqk4k")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ecaim"]
+vertex_color_is_srgb = true
+albedo_color = Color(0.0392157, 1, 0.431373, 1)
+normal_enabled = true
+normal_texture = SubResource("GradientTexture2D_mpnui")
+
+[node name="BestSaberClone" type="Node3D"]
+script = ExtResource("1_a2v53")
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+
+[node name="LeftController" type="XRController3D" parent="XROrigin3D"]
+tracker = &"left_hand"
+script = ExtResource("2_hfhrp")
+
+[node name="OculusQuest2TouchController_Left" parent="XROrigin3D/LeftController" instance=ExtResource("2_mqti6")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="BeetSaber" type="MeshInstance3D" parent="XROrigin3D/LeftController"]
+material_override = SubResource("StandardMaterial3D_hfhrp")
+mesh = SubResource("ImmediateMesh_jqk4k")
+script = ExtResource("6_hfhrp")
+
+[node name="Area3D" type="Area3D" parent="XROrigin3D/LeftController"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/LeftController/Area3D"]
+shape = SubResource("SphereShape3D_haqtk")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="XROrigin3D/LeftController"]
+stream = ExtResource("5_ducm2")
+
+[node name="RightController" type="XRController3D" parent="XROrigin3D"]
+tracker = &"right_hand"
+script = ExtResource("2_hfhrp")
+
+[node name="OculusQuest2TouchController_Right" parent="XROrigin3D/RightController" instance=ExtResource("3_qtmf7")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="BeetSaber" type="MeshInstance3D" parent="XROrigin3D/RightController"]
+material_override = SubResource("StandardMaterial3D_mpnui")
+mesh = SubResource("ImmediateMesh_ducm2")
+skin = SubResource("Skin_ecaim")
+skeleton = NodePath("../../..")
+script = ExtResource("6_hfhrp")
+
+[node name="Area3D" type="Area3D" parent="XROrigin3D/RightController"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/RightController/Area3D"]
+shape = SubResource("SphereShape3D_hfhrp")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="XROrigin3D/RightController"]
+stream = ExtResource("5_ducm2")
+
+[node name="DeliverTheBeets" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+script = ExtResource("6_ducm2")
+
+[node name="Timer" type="Timer" parent="DeliverTheBeets"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mqti6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+light_color = Color(0, 0.741176, 1, 1)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="WorldEnvironment"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldEnvironment/StaticBody3D"]
+shape = SubResource("BoxShape3D_hfhrp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldEnvironment/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.999956, 0.00933738, 0, -0.00933738, 0.999956, 0, 0, 0)
+mesh = SubResource("PlaneMesh_ducm2")
+surface_material_override/0 = SubResource("StandardMaterial3D_ecaim")
+
+[connection signal="button_pressed" from="XROrigin3D/LeftController" to="XROrigin3D/LeftController" method="_on_button_pressed"]
+[connection signal="button_released" from="XROrigin3D/LeftController" to="XROrigin3D/LeftController" method="_on_button_released"]
+[connection signal="area_entered" from="XROrigin3D/LeftController/Area3D" to="XROrigin3D/LeftController" method="_on_area_3d_area_entered"]
+[connection signal="button_pressed" from="XROrigin3D/RightController" to="XROrigin3D/RightController" method="_on_button_pressed"]
+[connection signal="button_released" from="XROrigin3D/RightController" to="XROrigin3D/RightController" method="_on_button_released"]
+[connection signal="area_entered" from="XROrigin3D/RightController/Area3D" to="XROrigin3D/RightController" method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="XROrigin3D/RightController/Area3D" to="XROrigin3D/RightController" method="_on_area_3d_area_exited"]
+[connection signal="timeout" from="DeliverTheBeets/Timer" to="DeliverTheBeets" method="_on_timer_timeout"]
