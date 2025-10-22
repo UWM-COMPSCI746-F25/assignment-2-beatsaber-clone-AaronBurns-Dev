@@ -1,9 +1,10 @@
 extends XRController3D
 
-@export var raycast_length = 100.0
+@export var raycast_length = 1.0
 @export var beet_saber: String = "red"
 var grabbed_object = null
 var collided_area = null
+var saber_on = false
 
 var last_pos = Vector3.ZERO
 var velocity = Vector3.ZERO
@@ -16,9 +17,9 @@ func _ready():
 	last_pos = global_position
 	$"BeetSaber".visible = false
 	
-	if $Area3D.get_child_count()>0:
-		cube_hit = $Area3D.get_child(0)
-		cube_destroyed.stream=load("res://explode.mp3")
+	#if $Area3D.get_child_count()>0:
+		#cube_hit = $Area3D.get_child(0)
+	cube_destroyed.stream=load("res://explode.mp3")
 
 func _process(delta):
 	if grabbed_object:
@@ -26,6 +27,12 @@ func _process(delta):
 		
 	velocity = (global_position - last_pos) / delta
 	last_pos = global_position
+	
+	if saber_on:
+		$"BeetSaber".visible = true
+		
+	else:
+		$"BeetSaber".visible = false
 	
 func _physics_process(delta):
 	var space_state = get_world_3d().direct_space_state
@@ -45,10 +52,14 @@ func _physics_process(delta):
 	
 
 func _on_area_3d_area_entered(area):
+	
+	
 	var cube_collision = area.get_parent()
-	if cube_collision.has_method("get_cube_color") and cube_collision.get_cube_color() == beet_saber:
-		cube_destroyed.play()
-		cube_collision.queue_free()
+	
+	print(cube_collision.name)
+	#if cube_collision.has_method("get_cube_color") and cube_collision.get_cube_color() == beet_saber:
+	cube_destroyed.play()
+	cube_collision.queue_free()
 
 
 func _on_area_3d_area_exited(area):
@@ -60,13 +71,10 @@ func _on_button_pressed(name):
 		if collided_area:
 			grabbed_object = collided_area
 	if name == 'ax_button':
-		$"BeetSaber".visible = true
+		saber_on = not saber_on
 	
 
 
 func _on_button_released(name):
 	if name == 'grip_click':
 		grabbed_object = null
-	if name == 'ax_button':
-		$"BeetSaber".visible = false
-		cube_hit.disabled = true

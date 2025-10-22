@@ -7,7 +7,7 @@ func _ready():
 	_reset_timer()
 
 func _reset_timer():
-	timer.wait_time = randf_range(0.5, 20.0)
+	timer.wait_time = randf_range(0.5, 2.0)
 	timer.start()
 
 

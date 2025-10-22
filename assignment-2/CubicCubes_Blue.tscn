@@ -11,6 +11,8 @@ script = ExtResource("1_qhlog")
 collision_mask = 2
 
 [node name="Area3D" type="Area3D" parent="CSGBox3D"]
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBox3D/Area3D"]
 shape = SubResource("BoxShape3D_ds50u")

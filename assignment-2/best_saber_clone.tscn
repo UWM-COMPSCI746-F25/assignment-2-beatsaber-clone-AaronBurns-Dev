@@ -13,18 +13,20 @@ albedo_color = Color(0, 0, 1, 1)
 
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_jqk4k"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_haqtk"]
-radius = 0.1
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ducm2"]
+height = 1.0
+radius = 0.01
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mpnui"]
 albedo_color = Color(1, 0, 0, 1)
 
-[sub_resource type="ImmediateMesh" id="ImmediateMesh_ducm2"]
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_mpnui"]
 
 [sub_resource type="Skin" id="Skin_ecaim"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_hfhrp"]
-radius = 0.1
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ducm2"]
+radius = 0.01
+height = 1.0
 
 [sub_resource type="Sky" id="Sky_hfhrp"]
 
@@ -71,9 +73,12 @@ mesh = SubResource("ImmediateMesh_jqk4k")
 script = ExtResource("6_hfhrp")
 
 [node name="Area3D" type="Area3D" parent="XROrigin3D/LeftController"]
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/LeftController/Area3D"]
-shape = SubResource("SphereShape3D_haqtk")
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.5)
+shape = SubResource("CylinderShape3D_ducm2")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="XROrigin3D/LeftController"]
 stream = ExtResource("5_ducm2")
@@ -87,7 +92,7 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 
 [node name="BeetSaber" type="MeshInstance3D" parent="XROrigin3D/RightController"]
 material_override = SubResource("StandardMaterial3D_mpnui")
-mesh = SubResource("ImmediateMesh_ducm2")
+mesh = SubResource("ImmediateMesh_mpnui")
 skin = SubResource("Skin_ecaim")
 skeleton = NodePath("../../..")
 script = ExtResource("6_hfhrp")
@@ -95,7 +100,8 @@ script = ExtResource("6_hfhrp")
 [node name="Area3D" type="Area3D" parent="XROrigin3D/RightController"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/RightController/Area3D"]
-shape = SubResource("SphereShape3D_hfhrp")
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.5)
+shape = SubResource("CapsuleShape3D_ducm2")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="XROrigin3D/RightController"]
 stream = ExtResource("5_ducm2")
