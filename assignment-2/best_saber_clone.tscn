@@ -31,7 +31,6 @@ height = 1.0
 [sub_resource type="Sky" id="Sky_hfhrp"]
 
 [sub_resource type="Environment" id="Environment_mqti6"]
-background_mode = 1
 background_color = Color(0.188235, 0.0862745, 0.0901961, 1)
 sky = SubResource("Sky_hfhrp")
 tonemap_mode = 2

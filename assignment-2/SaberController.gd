@@ -1,11 +1,9 @@
 extends XRController3D
 
 @export var raycast_length = 1.0
-@export var beet_saber: String = "red"
 var grabbed_object = null
 var collided_area = null
 var saber_on = false
-
 var last_pos = Vector3.ZERO
 var velocity = Vector3.ZERO
 @onready var cube_hit = CollisionShape3D
@@ -52,12 +50,9 @@ func _physics_process(delta):
 	
 
 func _on_area_3d_area_entered(area):
-	
-	
+	if not saber_on:
+		return
 	var cube_collision = area.get_parent()
-	
-	print(cube_collision.name)
-	#if cube_collision.has_method("get_cube_color") and cube_collision.get_cube_color() == beet_saber:
 	cube_destroyed.play()
 	cube_collision.queue_free()
 

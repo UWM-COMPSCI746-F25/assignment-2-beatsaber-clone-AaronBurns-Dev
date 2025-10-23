@@ -22,7 +22,7 @@ func _spawn_cube():
 	else:
 		next_cube = beet_blue.instantiate()
 	
-	var spawn_x = randf_range(-3.0, 3.0)
+	var spawn_x = randf_range(-1.0, 2.0)
 	var spawn_y = randf_range(-2.0, 2.0)
 	var spawn_z = -10.0
 	
