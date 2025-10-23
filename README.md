@@ -51,6 +51,10 @@ Instead of having the APK be uploaded to GitHub, you will submit it through Canv
 
 Please test that your submission meets these requirements.  For example, after you check in your final version of the assignment to GitHub, check it out again to a new directory and make sure everything opens and runs correctly.  You can also test your APK file by installing it manually using [SideQuest](https://sidequestvr.com/).
 
+## NOTE
+
+The sabers are currently flickering when on. I will be attempting to solve this issue even if I submit the assignment. I will update the project repo once this issue is ironed out. Everything else including the cube spawning and collision physics have been tested and are confirmed working.
+
 ## Acknowledgements
 
 This assignment is a modified version of an assignment from a class taught by Professor Evan Suma Rosenberg at the University of Minnesota.
